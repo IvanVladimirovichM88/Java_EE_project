@@ -2,6 +2,7 @@ package ru.geekbrain.listener;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.geekbrain.persist.BasketRepository;
 import ru.geekbrain.persist.Product;
 import ru.geekbrain.persist.ProductRepository;
 
@@ -33,7 +34,9 @@ public class AppBootsStartapListener implements ServletContextListener {
             servletContext.setAttribute( "connection", connection);
 
             ProductRepository productRepository = new ProductRepository(connection);
+            BasketRepository basketRepository = new BasketRepository(connection);
             servletContext.setAttribute( "productRepository", productRepository);
+            servletContext.setAttribute("basketRepository", basketRepository);
 
             if (productRepository.findAll().isEmpty()) {
                 logger.info("No products in DB. Initializing.");
@@ -42,6 +45,8 @@ public class AppBootsStartapListener implements ServletContextListener {
                 productRepository.insert(new Product(-1L, "Apple Macbook air 2015", "Apple netbook", new BigDecimal(2000)));
                 productRepository.insert(new Product(-1L, "Apple iPad", "Apple tablet", new BigDecimal(1000)));
             }
+
+
 
         } catch (SQLException e) {
             logger.error("",e);

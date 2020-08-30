@@ -11,7 +11,7 @@ import java.io.IOException;
 public class MainPageHttpServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.getWriter().println("<h1>-----ГЛАВНАЯ СТРАНИЦА------</h1>");
-        getServletContext().getRequestDispatcher("/navigation").include(req,resp);
+        //resp.getWriter().println("<h1>-----ГЛАВНАЯ СТРАНИЦА------</h1>");
+        getServletContext().getRequestDispatcher("/WEB-INF/index.jsp").include(req,resp);
     }
 }
