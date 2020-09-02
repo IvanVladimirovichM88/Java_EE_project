@@ -1,0 +1,4 @@
+ru\jsf_app\persist\Product.class
+ru\jsf_app\persist\ProductRepository.class
+ru\jsf_app\listener\AppBootstrapListener.class
+ru\jsf_app\controller\ProductController.class
