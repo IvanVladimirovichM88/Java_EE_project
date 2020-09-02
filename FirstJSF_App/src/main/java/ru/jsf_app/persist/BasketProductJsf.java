@@ -11,13 +11,13 @@ public class BasketProductJsf extends Product implements Serializable {
     public BasketProductJsf(){
     }
 
-    public BasketProductJsf(Long idProduct, String name,
-                            String description, BigDecimal price,
-                            Long idProductInBasket, int count){
+    public BasketProductJsf(Long idProduct, String nameProduct,
+                            String descriptionProduct, BigDecimal priceProduct,
+                            Long idProductInBasket, int numberOfProduct){
 
-        super(idProduct, name, description, price);
+        super(idProduct, nameProduct, descriptionProduct, priceProduct);
         this.idProductInBasket = idProductInBasket;
-        this.count = count;
+        this.count = numberOfProduct;
     }
 
     public Long getIdProductInBasket() {
