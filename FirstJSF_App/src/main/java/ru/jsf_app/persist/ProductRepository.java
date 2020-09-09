@@ -87,13 +87,43 @@ public class ProductRepository {
     public List<Product> findAll() throws SQLException {
         List<Product> res = new ArrayList<>();
         try (Statement stmt = conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery("select id, name, description, price from products");
+            ResultSet rs = stmt.executeQuery("select id, name, description, price from products;");
 
             while (rs.next()) {
                 res.add(new Product(rs.getLong(1), rs.getString(2), rs.getString(3), rs.getBigDecimal(4)));
             }
         }
         return res;
+    }
+
+    public void addInBasket(Long product_id) throws SQLException {
+        PreparedStatement preparedStatement = null;
+        preparedStatement = conn.prepareStatement(
+                "SELECT \n" +
+                        "    basket.basket_id\n" +
+                        "FROM\n" +
+                        "    basket\n" +
+                        "WHERE\n" +
+                        "    basket.product_id = ?;");
+        preparedStatement.setLong(1 , product_id);
+        ResultSet resultSet = preparedStatement.executeQuery();
+
+        if(resultSet.next()){
+            preparedStatement = conn.prepareStatement(
+                        "UPDATE basket \n" +
+                                "SET \n" +
+                                "    basket.number_of_product = basket.number_of_product + 1\n" +
+                                "WHERE\n" +
+                                "    basket.product_id = ?;"
+                );
+                preparedStatement.setLong(1 , product_id);
+                preparedStatement.executeUpdate();
+        }else{
+            preparedStatement = conn.prepareStatement(
+                    "INSERT INTO basket (product_id, number_of_product) VALUES (?,1);");
+            preparedStatement.setLong(1 , product_id);
+            preparedStatement.executeUpdate();
+        }
     }
 
     private void createTableIfNotExists(Connection conn) throws SQLException {

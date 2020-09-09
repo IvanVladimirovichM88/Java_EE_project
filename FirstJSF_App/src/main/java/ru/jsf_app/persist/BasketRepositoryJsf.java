@@ -9,10 +9,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletContext;
 import java.io.Serializable;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,7 +43,8 @@ public class BasketRepositoryJsf implements Serializable {
         List<BasketProductJsf> res = new ArrayList<>();
 
         try (Statement stmt = connection.createStatement()) {
-            ResultSet rs = stmt.executeQuery("SELECT \n" +
+            ResultSet rs = stmt.executeQuery(
+                    "SELECT \n" +
                     "    `products`.`id` AS idProduct,\n" +
                     "    `products`.`name` AS nameProduct,\n" +
                     "    `products`.`description` AS descriptionProduct,\n" +
@@ -56,8 +54,10 @@ public class BasketRepositoryJsf implements Serializable {
                     "FROM\n" +
                     "    basket\n" +
                     "        JOIN\n" +
-                    "    products ON (basket.basket_id = products.id);");
+                    "    products ON (basket.product_id = products.id);"
+            );
             while (rs.next()) {
+
                 res.add(new BasketProductJsf(rs.getLong("idProduct"),
                                              rs.getString("nameProduct"),
                                              rs.getString("descriptionProduct"),
@@ -67,6 +67,58 @@ public class BasketRepositoryJsf implements Serializable {
             }
         }
         return res;
+    }
+
+    public void add( Long idProductInBasket ) throws SQLException {
+        PreparedStatement preparedStatement = connection.prepareStatement(
+                "UPDATE basket \n" +
+                        "SET \n" +
+                        "    basket.number_of_product = basket.number_of_product + 1\n" +
+                        "WHERE\n" +
+                        "    basket.basket_id = ?; ");
+        preparedStatement.setLong(1 , idProductInBasket );
+        preparedStatement.executeUpdate();
+    }
+
+    public void remove (Long idProductInBasket) throws SQLException {
+        PreparedStatement preparedStatement = null;
+        preparedStatement = connection.prepareStatement(
+                "SELECT \n" +
+                        "    basket.number_of_product\n" +
+                        "FROM\n" +
+                        "    basket\n" +
+                        "WHERE\n" +
+                        "    basket.basket_id = ?;");
+        preparedStatement.setLong(1 , idProductInBasket);
+        ResultSet resultSet;
+        resultSet = preparedStatement.executeQuery();
+
+        if(resultSet.next()){
+            int numberOfProduct = resultSet.getInt("number_of_product");
+            if (numberOfProduct > 1){
+                preparedStatement = connection.prepareStatement(
+                        "UPDATE basket \n" +
+                                "SET \n" +
+                                "    basket.number_of_product = basket.number_of_product - 1\n" +
+                                "WHERE\n" +
+                                "    basket.basket_id = ?;"
+                );
+                preparedStatement.setLong(1 , idProductInBasket);
+                preparedStatement.execute();
+            }else{
+                preparedStatement = connection.prepareStatement("DELETE FROM basket WHERE basket_id = ?;");
+                preparedStatement.setLong(1 , idProductInBasket);
+                preparedStatement.execute();
+            }
+        }
+
+    }
+
+    public void delete(Long idProductInBasket) throws SQLException {
+        try (PreparedStatement stmt = connection.prepareStatement("DELETE FROM basket WHERE basket_id = ?;")){
+            stmt.setLong(1 , idProductInBasket);
+            stmt.execute();
+        }
     }
 
 }

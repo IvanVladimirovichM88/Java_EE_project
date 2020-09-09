@@ -36,4 +36,19 @@ public class BasketControllerJsf  implements Serializable {
             return null;
         }
     }
+    public String deleteProduct(BasketProductJsf basketProduct) throws SQLException {
+        basketRepositoryJsf.delete(basketProduct.getIdProductInBasket());
+        return "/basket.xhtml?faces-redirect=true";
+    }
+
+    public String addProduct(BasketProductJsf basketProduct) throws SQLException {
+        basketRepositoryJsf.add(basketProduct.getIdProductInBasket());
+        return "/basket.xhtml?faces-redirect=true";
+    }
+
+    public String removeProduct(BasketProductJsf basketProduct) throws SQLException {
+        basketRepositoryJsf.remove(basketProduct.getIdProductInBasket());
+        return "/basket.xhtml?faces-redirect=true";
+    }
+
 }

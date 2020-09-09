@@ -44,42 +44,17 @@
         <div class="row py-2">
             <h:form id="productsForm">
                 <div class="col-12">
-                    <h:dataTable value="#{basketControllerJsf.getAllBasketProduct()}"
+                    <h:dataTable value="#{categoriesController.getAllCategories()}"
                                  styleClass="table table-bordered my-2"
-                                 var="basketProduct">
+                                 var="category">1
                         <h:column>
-                            <f:facet name="header">Name</f:facet>
-                            #{basketProduct.name}
+                            <f:facet name="header">Id</f:facet>
+                            #{category.idCategory}
                         </h:column>
                         <h:column>
-                            <f:facet name="header">Description</f:facet>
-                            #{basketProduct.description}
+                            <f:facet name="header">Categories</f:facet>
+                            #{category.fldCategory}
                         </h:column>
-                        <h:column>
-                            <f:facet name="header">Price</f:facet>
-                            #{basketProduct.price}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Number</f:facet>
-                            #{basketProduct.count}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">Summ</f:facet>
-                            #{basketProduct.count * basketProduct.price}
-                        </h:column>
-                        <h:column>
-                            <h:commandLink styleClass="btn btn-success"
-                                           action = "#{basketControllerJsf.addProduct(basketProduct)}">
-                                <i class="fas fa-plus-square"></i>
-                            </h:commandLink>
-                            <h:commandLink styleClass="btn btn-success"
-                                           action = "#{basketControllerJsf.removeProduct(basketProduct)}">
-                                <i class="fas fa-minus-square"></i>
-                            </h:commandLink>
-                        </h:column>
-
-
-
                     </h:dataTable>
                 </div>
             </h:form>

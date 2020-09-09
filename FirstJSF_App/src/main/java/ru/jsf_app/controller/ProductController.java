@@ -54,5 +54,11 @@ public class ProductController implements Serializable {
         }
         return "/index.xhtml?faces-redirect=true";
     }
+
+    public void addInBasket(Product product) throws SQLException {
+        productRepository.addInBasket(product.getId());
+    }
+
+
 }
 

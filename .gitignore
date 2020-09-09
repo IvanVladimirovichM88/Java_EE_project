@@ -5,4 +5,9 @@
 /first_web_app/target/first_web_app
 
 
+*.war
+*.lst
+*.class
+
 *.iml
+/FirstJSF_App/target/
