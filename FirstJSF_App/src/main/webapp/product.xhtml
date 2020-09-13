@@ -59,6 +59,32 @@
                             <f:converter converterId="javax.faces.BigDecimal"/>
                         </h:inputText>
                     </div>
+
+<!--                    <div class="form-group">-->
+<!--                        <h:outputLabel value="Category"/>-->
+<!--                        <h:selectOneListbox size="1" styleClass="form-control" id="productCategory"-->
+<!--                                            value="#{productController.product.category.id}">-->
+<!--                            <f:selectItems value="#{productController.allCategories}"-->
+<!--                                           var="cat"-->
+<!--                                           itemValue="#{cat.id}"-->
+<!--                                           itemLabel="#{cat.name}"-->
+<!--                                           itemLabelEscaped="true"/>-->
+<!--                        </h:selectOneListbox>-->
+<!--                    </div>-->
+
+
+
+                    <div class="form-group">
+                        <h:outputLabel value="Category"/>
+                        <h:selectOneListbox size = "1" styleClass ="form-control" id = "productCategory"
+                                            value = "#{productController.product.category.idCategory}">
+                            <f:selectItems value = "#{productController.allCategories}"
+                                            var = "cat"
+                                            itemValue = "#{cat.idCategory}"
+                                            itemLabel = "#{cat.fldCategory}"
+                                            itemLabelEscaped = "true"/>
+                        </h:selectOneListbox>
+                    </div>
                     <h:commandButton value="Submit" styleClass="btn btn-primary" action="#{productController.saveProduct()}"/>
                 </h:form>
             </div>

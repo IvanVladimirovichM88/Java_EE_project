@@ -1,6 +1,8 @@
 package ru.jsf_app.controller;
 
 
+import ru.jsf_app.persist.CategoriesRepository;
+import ru.jsf_app.persist.Category;
 import ru.jsf_app.persist.Product;
 import ru.jsf_app.persist.ProductRepository;
 
@@ -18,6 +20,9 @@ public class ProductController implements Serializable {
     @Inject
     private ProductRepository productRepository;
 
+    @Inject
+    private CategoriesRepository categoriesRepository;
+
     private Product product;
 
     public Product getProduct() {
@@ -28,7 +33,7 @@ public class ProductController implements Serializable {
         this.product = product;
     }
 
-    public List<Product> getAllProducts() throws SQLException {
+    public List<Product> getAllProducts()  {
         return productRepository.findAll();
     }
 
@@ -37,7 +42,7 @@ public class ProductController implements Serializable {
         return "/product.xhtml?faces-redirect=true";
     }
 
-    public void deleteProduct(Product product) throws SQLException {
+    public void deleteProduct(Product product) {
         productRepository.delete(product.getId());
     }
 
@@ -46,8 +51,9 @@ public class ProductController implements Serializable {
         return "/product.xhtml?faces-redirect=true";
     }
 
-    public String saveProduct() throws SQLException {
+    public String saveProduct() {
         if (product.getId() != null) {
+            this.getProduct().getCategory().getIdCategory();
             productRepository.update(product);
         } else {
             productRepository.insert(product);
@@ -55,9 +61,13 @@ public class ProductController implements Serializable {
         return "/index.xhtml?faces-redirect=true";
     }
 
-    public void addInBasket(Product product) throws SQLException {
-        productRepository.addInBasket(product.getId());
+    public List<Category> getAllCategories(){
+        return categoriesRepository.findAll();
     }
+
+//    public void addInBasket(Product product) throws SQLException {
+//        productRepository.addInBasket(product.getId());
+//    }
 
 
 }

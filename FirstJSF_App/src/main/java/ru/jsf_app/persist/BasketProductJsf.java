@@ -15,7 +15,7 @@ public class BasketProductJsf extends Product implements Serializable {
                             String descriptionProduct, BigDecimal priceProduct,
                             Long idProductInBasket, int numberOfProduct){
 
-        super(idProduct, nameProduct, descriptionProduct, priceProduct);
+        super( nameProduct, descriptionProduct, priceProduct);
         this.idProductInBasket = idProductInBasket;
         this.count = numberOfProduct;
     }
