@@ -10,7 +10,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import java.io.Serializable;
-import java.sql.SQLException;
 import java.util.List;
 
 @SessionScoped
@@ -24,6 +23,8 @@ public class ProductController implements Serializable {
     private CategoriesRepository categoriesRepository;
 
     private Product product;
+
+    private Long categoryId;
 
     public Product getProduct() {
         return product;
@@ -42,6 +43,14 @@ public class ProductController implements Serializable {
         return "/product.xhtml?faces-redirect=true";
     }
 
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public void deleteProduct(Product product) {
         productRepository.delete(product.getId());
     }
@@ -52,8 +61,9 @@ public class ProductController implements Serializable {
     }
 
     public String saveProduct() {
+
         if (product.getId() != null) {
-            this.getProduct().getCategory().getIdCategory();
+            product.setCategory( categoriesRepository.findById(categoryId).get() );
             productRepository.update(product);
         } else {
             productRepository.insert(product);

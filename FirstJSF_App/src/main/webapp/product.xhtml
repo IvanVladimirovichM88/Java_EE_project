@@ -47,42 +47,33 @@
                 <h:form id="productForm">
                     <div class="form-group">
                         <h:outputLabel value="Name"/>
-                        <h:inputText styleClass="form-control" id="name" value="#{productController.product.name}" placeholder="Enter name"/>
+                        <h:inputText styleClass="form-control" id="name"
+                                     value="#{productController.product.name}" placeholder="Enter name"/>
                     </div>
                     <div class="form-group">
                         <h:outputLabel value="Description"/>
-                        <h:inputText styleClass="form-control" id="description" value="#{productController.product.description}" placeholder="Enter description"/>
+                        <h:inputText styleClass="form-control" id="description"
+                                     value="#{productController.product.description}" placeholder="Enter description"/>
                     </div>
                     <div class="form-group">
                         <h:outputLabel value="Price"/>
-                        <h:inputText p:type="number" styleClass="form-control" id="price" value="#{productController.product.price}" placeholder="Enter price">
+                        <h:inputText p:type="number" styleClass="form-control" id="price"
+                                     value="#{productController.product.price}" placeholder="Enter price">
                             <f:converter converterId="javax.faces.BigDecimal"/>
                         </h:inputText>
                     </div>
 
-<!--                    <div class="form-group">-->
-<!--                        <h:outputLabel value="Category"/>-->
-<!--                        <h:selectOneListbox size="1" styleClass="form-control" id="productCategory"-->
-<!--                                            value="#{productController.product.category.id}">-->
-<!--                            <f:selectItems value="#{productController.allCategories}"-->
-<!--                                           var="cat"-->
-<!--                                           itemValue="#{cat.id}"-->
-<!--                                           itemLabel="#{cat.name}"-->
-<!--                                           itemLabelEscaped="true"/>-->
-<!--                        </h:selectOneListbox>-->
-<!--                    </div>-->
-
-
-
                     <div class="form-group">
                         <h:outputLabel value="Category"/>
-                        <h:selectOneListbox size = "1" styleClass ="form-control" id = "productCategory"
-                                            value = "#{productController.product.category.idCategory}">
+                        <h:selectOneListbox size = "1" styleClass ="form-control" id = "fldCategory"
+                                            value = "#{productController.categoryId}"
+                                            >
                             <f:selectItems value = "#{productController.allCategories}"
                                             var = "cat"
                                             itemValue = "#{cat.idCategory}"
                                             itemLabel = "#{cat.fldCategory}"
                                             itemLabelEscaped = "true"/>
+<!--                            <f:converter converterId="CategoryConverter"/>-->
                         </h:selectOneListbox>
                     </div>
                     <h:commandButton value="Submit" styleClass="btn btn-primary" action="#{productController.saveProduct()}"/>

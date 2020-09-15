@@ -13,6 +13,7 @@ import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContext;
 import javax.swing.*;
 import javax.transaction.SystemException;
+import javax.transaction.Transactional;
 import javax.transaction.UserTransaction;
 import java.math.BigDecimal;
 import java.sql.*;
@@ -60,15 +61,15 @@ public class ProductRepository {
         }
     }
 
-
+    @Transactional
     public void insert(Product product) {
         entityManager.persist(product);
     }
-
+    @Transactional
     public void update(Product product) {
         entityManager.merge(product);
     }
-
+    @Transactional
     public void delete(long id) {
         Product product = entityManager.find(Product.class, id);
         if (product != null){

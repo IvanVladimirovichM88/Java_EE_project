@@ -1,6 +1,8 @@
 C:\Java_EE_project\FirstJSF_App\src\main\java\ru\jsf_app\persist\BasketRepositoryJsf.java
+C:\Java_EE_project\FirstJSF_App\src\main\java\ru\jsf_app\persist\Category.java
 C:\Java_EE_project\FirstJSF_App\src\main\java\ru\jsf_app\persist\BasketProductJsf.java
-C:\Java_EE_project\FirstJSF_App\src\main\java\ru\jsf_app\listener\AppBootstrapListener.java
+C:\Java_EE_project\FirstJSF_App\src\main\java\ru\jsf_app\controller\CategoryConverter.java
+C:\Java_EE_project\FirstJSF_App\src\main\java\ru\jsf_app\persist\CategoriesRepository.java
 C:\Java_EE_project\FirstJSF_App\src\main\java\ru\jsf_app\persist\ProductRepository.java
 C:\Java_EE_project\FirstJSF_App\src\main\java\ru\jsf_app\controller\BasketControllerJsf.java
 C:\Java_EE_project\FirstJSF_App\src\main\java\ru\jsf_app\persist\Product.java
