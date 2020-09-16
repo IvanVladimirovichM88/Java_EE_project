@@ -49,15 +49,15 @@
                                  var="basketProduct">
                         <h:column>
                             <f:facet name="header">Name</f:facet>
-                            #{basketProduct.name}
+                            #{basketProduct.product.name}
                         </h:column>
                         <h:column>
                             <f:facet name="header">Description</f:facet>
-                            #{basketProduct.description}
+                            #{basketProduct.product.description}
                         </h:column>
                         <h:column>
                             <f:facet name="header">Price</f:facet>
-                            #{basketProduct.price}
+                            #{basketProduct.product.price}
                         </h:column>
                         <h:column>
                             <f:facet name="header">Number</f:facet>
@@ -65,7 +65,7 @@
                         </h:column>
                         <h:column>
                             <f:facet name="header">Summ</f:facet>
-                            #{basketProduct.count * basketProduct.price}
+                            #{basketProduct.count * basketProduct.product.price}
                         </h:column>
                         <h:column>
                             <h:commandLink styleClass="btn btn-success"

@@ -1,10 +1,7 @@
 package ru.jsf_app.controller;
 
 
-import ru.jsf_app.persist.CategoriesRepository;
-import ru.jsf_app.persist.Category;
-import ru.jsf_app.persist.Product;
-import ru.jsf_app.persist.ProductRepository;
+import ru.jsf_app.persist.*;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -21,6 +18,9 @@ public class ProductController implements Serializable {
 
     @Inject
     private CategoriesRepository categoriesRepository;
+
+    @Inject
+    private BasketRepositoryJsf basketRepositoryJsf;
 
     private Product product;
 
@@ -65,7 +65,9 @@ public class ProductController implements Serializable {
         if (product.getId() != null) {
             product.setCategory( categoriesRepository.findById(categoryId).get() );
             productRepository.update(product);
+
         } else {
+            product.setCategory( categoriesRepository.findById(categoryId).get() );
             productRepository.insert(product);
         }
         return "/index.xhtml?faces-redirect=true";
@@ -75,9 +77,18 @@ public class ProductController implements Serializable {
         return categoriesRepository.findAll();
     }
 
-//    public void addInBasket(Product product) throws SQLException {
-//        productRepository.addInBasket(product.getId());
-//    }
+    public void addInBasket(Product product) {
+        BasketProductJsf basketProduct = basketRepositoryJsf.findByProduct(product).orElse(new BasketProductJsf(product));
+        int count = basketProduct.getCount();
+        if(count == 0){
+            basketProduct.setCount(1);
+            basketRepositoryJsf.insert(basketProduct);
+        }else {
+            basketProduct.setCount(++count);
+            basketRepositoryJsf.update(basketProduct);
+        }
+
+    }
 
 
 }

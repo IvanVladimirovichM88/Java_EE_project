@@ -2,6 +2,7 @@ package ru.jsf_app.controller;
 
 import ru.jsf_app.persist.BasketProductJsf;
 import ru.jsf_app.persist.BasketRepositoryJsf;
+import ru.jsf_app.persist.ProductRepository;
 
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
@@ -16,6 +17,8 @@ public class BasketControllerJsf  implements Serializable {
 
     @Inject
     private BasketRepositoryJsf basketRepositoryJsf;
+    @Inject
+    private ProductRepository productRepository;
 
     private BasketProductJsf basketProduct;
 
@@ -28,26 +31,29 @@ public class BasketControllerJsf  implements Serializable {
     }
 
     public List<BasketProductJsf> getAllBasketProduct(){
+        return basketRepositoryJsf.findAll();
+    }
+    public String deleteProduct(BasketProductJsf basketProduct) {
+        basketRepositoryJsf.delete(basketProduct.getIdBasket());
+        return "/basket.xhtml?faces-redirect=true";
+    }
 
-        try {
-            return basketRepositoryJsf.findAll();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return null;
+    public String addProduct(BasketProductJsf basketProduct) {
+        int count = basketProduct.getCount();
+        basketProduct.setCount( ++count );
+        basketRepositoryJsf.update(basketProduct);
+        return "/basket.xhtml?faces-redirect=true";
+    }
+
+    public String removeProduct(BasketProductJsf basketProduct) {
+        int count = basketProduct.getCount();
+        if(count > 1) {
+            basketProduct.setCount( --count );
+            basketRepositoryJsf.update(basketProduct);
+        }else {
+            basketRepositoryJsf.delete(basketProduct.getIdBasket());
         }
-    }
-    public String deleteProduct(BasketProductJsf basketProduct) throws SQLException {
-        basketRepositoryJsf.delete(basketProduct.getIdProductInBasket());
-        return "/basket.xhtml?faces-redirect=true";
-    }
 
-    public String addProduct(BasketProductJsf basketProduct) throws SQLException {
-        basketRepositoryJsf.add(basketProduct.getIdProductInBasket());
-        return "/basket.xhtml?faces-redirect=true";
-    }
-
-    public String removeProduct(BasketProductJsf basketProduct) throws SQLException {
-        basketRepositoryJsf.remove(basketProduct.getIdProductInBasket());
         return "/basket.xhtml?faces-redirect=true";
     }
 

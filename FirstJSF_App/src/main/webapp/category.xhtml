@@ -42,7 +42,11 @@
 
     <div class="container">
         <div class="row py-2">
-            <h:form id="productsForm">
+            <h:form id="categoriesForm">
+                <div class="col-12">
+                    <h:commandButton value="Add Category" styleClass="btn btn-primary"
+                                     action="#{categoriesController.createCategory()}"/>
+                </div>
                 <div class="col-12">
                     <h:dataTable value="#{categoriesController.getAllCategories()}"
                                  styleClass="table table-bordered my-2"

@@ -3,6 +3,7 @@ package ru.jsf_app.persist;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -20,6 +21,13 @@ public class Product implements Serializable {
 
     @ManyToOne
     private Category category;
+
+//    @OneToMany(
+//            mappedBy = "product",
+//            cascade = CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    private List<BasketProductJsf> basketProduct;
 
     public Product() {
     }
@@ -69,4 +77,12 @@ public class Product implements Serializable {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+//    public List<BasketProductJsf> getBasketProduct() {
+//        return basketProduct;
+//    }
+//
+//    public void setBasketProduct(List<BasketProductJsf> basketProduct) {
+//        this.basketProduct = basketProduct;
+//    }
 }
