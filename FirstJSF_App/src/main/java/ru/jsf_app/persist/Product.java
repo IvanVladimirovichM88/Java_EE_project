@@ -74,6 +74,14 @@ public class Product implements Serializable {
         return category;
     }
 
+    public String getNameCategory(){
+        if(this.category != null){
+            return this.category.getFldCategory();
+        }else{
+            return "No Category";
+        }
+    }
+
     public void setCategory(Category category) {
         this.category = category;
     }
