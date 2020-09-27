@@ -18,29 +18,6 @@
 
 <h:body>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Product</a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <h:link styleClass="nav-link" value="List" outcome="index"/>
-                </li>
-                <li class="nav-item active">
-                    <h:link styleClass="nav-link" value="Basket" outcome="basket"/>
-                </li>
-                <li class="nav-item active">
-                    <h:link styleClass="nav-link" value="Category" outcome="category"/>
-                </li>
-            </ul>
-        </div>
-    </nav>
-
     <div class="container">
         <div class="row py-2">
             <div class="col-12">
@@ -48,34 +25,21 @@
                     <div class="form-group">
                         <h:outputLabel value="Name"/>
                         <h:inputText styleClass="form-control" id="name"
-                                     value="#{productController.product.name}" placeholder="Enter name"/>
+                                     value="#{homePfController.productDAO.name}" placeholder="Enter name"/>
                     </div>
                     <div class="form-group">
                         <h:outputLabel value="Description"/>
                         <h:inputText styleClass="form-control" id="description"
-                                     value="#{productController.product.description}" placeholder="Enter description"/>
+                                     value="#{homePfController.productDAO.description}" placeholder="Enter description"/>
                     </div>
                     <div class="form-group">
                         <h:outputLabel value="Price"/>
                         <h:inputText p:type="number" styleClass="form-control" id="price"
-                                     value="#{productController.product.price}" placeholder="Enter price">
+                                     value="#{homePfController.productDAO.price}" placeholder="Enter price">
                             <f:converter converterId="javax.faces.BigDecimal"/>
                         </h:inputText>
                     </div>
-
-                    <div class="form-group">
-                        <h:outputLabel value="Category"/>
-                        <h:selectOneListbox size = "1" styleClass ="form-control" id = "fldCategory"
-                                            value = "#{productController.categoryId}"
-                                            >
-                            <f:selectItems value = "#{productController.allCategories}"
-                                            var = "cat"
-                                            itemValue = "#{cat.idCategory}"
-                                            itemLabel = "#{cat.fldCategory}"
-                                            itemLabelEscaped = "true"/>
-                        </h:selectOneListbox>
-                    </div>
-                    <h:commandButton value="Submit" styleClass="btn btn-primary" action="#{productController.saveProduct()}"/>
+                    <h:commandButton value="Submit" styleClass="btn btn-primary" action="#{homePfController.saveProduct()}"/>
                 </h:form>
             </div>
         </div>

@@ -4,60 +4,28 @@ package ru.jsf_app.persist;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.annotation.PostConstruct;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
-import javax.inject.Named;
+import javax.ejb.Stateless;
+import javax.ejb.TransactionAttribute;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import javax.transaction.SystemException;
-import javax.transaction.Transactional;
-import javax.transaction.UserTransaction;
+
 
 import java.util.List;
 import java.util.Optional;
 
-@ApplicationScoped
-@Named
+@Stateless
 public class CategoriesRepository {
 
     private static final Logger logger = LoggerFactory.getLogger(CategoriesRepository.class);
 
     @PersistenceContext(unitName = "ds")
     private EntityManager entityManager;
-    @Inject
-    private UserTransaction userTransaction;
 
     public CategoriesRepository(){}
 
-    @PostConstruct
-    public void init()  {
-        logger.info("category repository init() start !!!");
-        if (this.findAll().isEmpty()){
-            logger.info("No category in category repositories!");
-
-            try {
-                userTransaction.begin();
-
-                this.insert(new Category("NoteBook"));
-                this.insert(new Category("NetBook"));
-                this.insert(new Category("Tablet"));
-
-                userTransaction.commit();
-            } catch (Exception e) {
-                try {
-                    userTransaction.rollback();
-                    e.printStackTrace();
-                } catch (SystemException systemException) {
-                    systemException.printStackTrace();
-                }
-            }
-        }
-    }
-
-    @Transactional
+    @TransactionAttribute
     public void insert(Category category){
         entityManager.persist(category);
     }
@@ -71,6 +39,14 @@ public class CategoriesRepository {
             return Optional.of(category);
         }
         return Optional.empty();
+
+    }
+
+    public void delete(Long id) {
+        Category category = entityManager.find(Category.class, id);
+        if ((category!=null) & (category.getProducts().isEmpty())){
+            entityManager.remove(category);
+        }
 
     }
 }

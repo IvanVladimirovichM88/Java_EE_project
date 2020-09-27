@@ -22,7 +22,7 @@ public class Category implements Serializable {
 
     public Category(){}
 
-    public Category( String fldCategory){
+    public Category( String fldCategory ){
         this.fldCategory = fldCategory;
     }
 

@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <style type="text/css">
+    .value {
+        font-weight: bold;
+    }
+    </style>
+
+    <h:outputStylesheet name="primeicons/primeicons.css" library="primefaces" />
+
+
+</h:head>
+
+<h:body>
+
+    <h:form id="productForm">
+
+        <h:panelGrid columns="2" cellpadding="5">
+
+                <p:outputLabel value="Name:" />
+                <p:inputText id="name-input" value="#{homePfController.productDAO.name}"/>
+
+
+                <p:outputLabel value="Description:" />
+                <p:inputText id="description-input" value="#{homePfController.productDAO.description}" />
+
+
+                <p:outputLabel value="Price:" />
+                <p:inputText id="price-input" value="#{homePfController.productDAO.price}" />
+
+
+            <p:outputLabel value="Category:" />
+            <p:selectOneMenu id="category" value="#{homePfController.productDAO.idCategory}"
+                             effect="fold" editable="true" var = "productCategory"
+                             style="width:160px">
+                <f:selectItems value="#{homePfController.allCategories}"
+                               var="cat"
+                               itemLabel="#{cat.fldCategory}"
+                               itemValue="#{cat.idCategory}" />
+                <p:column>
+                    <h:outputText value="#{productCategory}"/>
+                </p:column>
+
+            </p:selectOneMenu>
+        </h:panelGrid>
+        <p:commandButton id="save_prod" icon="pi pi-check" action="#{homePfController.saveProduct()}"/>
+
+    </h:form>
+</h:body>
+</html>

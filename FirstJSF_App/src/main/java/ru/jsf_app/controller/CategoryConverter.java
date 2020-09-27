@@ -53,3 +53,40 @@ import java.io.Serializable;
 //        return String.valueOf((category.getIdCategory()));
 //    }
 //}
+
+
+
+@Named
+@FacesConverter(value = "categoryConverter", managed = true)
+public class CategoryConverter implements Converter {
+
+    @Inject
+    private CategoriesRepository categoriesRepository;
+
+    @Override
+    public Object getAsObject(FacesContext fc, UIComponent uic, String value) {
+        if(value != null && value.trim().length() > 0) {
+            try {
+                return categoriesRepository.findById(Long.parseLong(value));
+            } catch(NumberFormatException e) {
+                throw new ConverterException(new FacesMessage(FacesMessage.SEVERITY_ERROR, "Conversion Error", "Not a valid category."));
+            }
+        }
+        else {
+            return null;
+        }
+    }
+
+    @Override
+    public String getAsString(FacesContext fc, UIComponent uic, Object object) {
+        if(object != null) {
+            return String.valueOf(((Category) object).getIdCategory());
+        }
+        else {
+            return null;
+        }
+    }
+}
+
+
+

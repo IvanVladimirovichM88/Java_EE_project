@@ -22,12 +22,6 @@ public class Product implements Serializable {
     @ManyToOne
     private Category category;
 
-//    @OneToMany(
-//            mappedBy = "product",
-//            cascade = CascadeType.ALL,
-//            orphanRemoval = true
-//    )
-//    private List<BasketProductJsf> basketProduct;
 
     public Product() {
     }
@@ -36,6 +30,13 @@ public class Product implements Serializable {
         this.name = name;
         this.description = description;
         this.price = price;
+    }
+
+    public Product( String name, String description, BigDecimal price, Category category) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
     }
 
     public Long getId() {
