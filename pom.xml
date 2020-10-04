@@ -12,6 +12,7 @@
     <modules>
         <module>first_web_app</module>
         <module>FirstJSF_App</module>
+        <module>ws-client</module>
     </modules>
 
 

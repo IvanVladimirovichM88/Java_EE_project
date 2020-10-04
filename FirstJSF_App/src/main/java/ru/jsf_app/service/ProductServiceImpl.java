@@ -4,15 +4,18 @@ import ru.jsf_app.persist.CategoriesRepository;
 import ru.jsf_app.persist.Category;
 import ru.jsf_app.persist.Product;
 import ru.jsf_app.persist.ProductRepository;
+import ru.jsf_app.rest.ProductServiceRs;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Stateless
-public class ProductServiceImpl implements ProductService {
+@WebService(endpointInterface = "ru.jsf_app.service.ProductServiceWs",serviceName = "ProductService")
+public class ProductServiceImpl implements ProductService, ProductServiceWs, ProductServiceRs {
 
     @EJB
     private ProductRepository productRepository;
@@ -71,4 +74,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll().stream()
                 .map(ProductDAO::new).collect(Collectors.toList());
     }
+
+    @Override
+    public ProductDAO findByIdRs(long id) {
+        return findById(id).get();
+    }
+
 }
