@@ -11,16 +11,16 @@ import java.util.Optional;
 public interface ProductService {
 
     @TransactionAttribute
-    public void insert(ProductDAO productDAO);
+    void insert(ProductDAO productDAO);
 
     @TransactionAttribute
-    public void update(ProductDAO productDAO);
+    void update(ProductDAO productDAO);
 
     @TransactionAttribute
-    public void delete(long id) ;
+    void delete(long id) ;
 
-    public Optional<ProductDAO> findById(long id) ;
+    Optional<ProductDAO> findById(long id) ;
 
-    public List<ProductDAO> findAll() ;
+    List<ProductDAO> findAll() ;
 
 }

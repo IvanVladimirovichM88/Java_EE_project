@@ -2,6 +2,7 @@ package ru.jsf_app.service.category;
 
 import ru.jsf_app.persist.CategoriesRepository;
 import ru.jsf_app.persist.Category;
+import ru.jsf_app.rest.CategoryServiceRs;
 import ru.jsf_app.service.ProductDAO;
 
 import javax.ejb.EJB;
@@ -11,7 +12,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Stateless
-public class CategoryServiceImpl implements CategoryService{
+public class CategoryServiceImpl implements CategoryService, CategoryServiceRs {
 
     @EJB
     private CategoriesRepository categoriesRepository;
@@ -19,6 +20,7 @@ public class CategoryServiceImpl implements CategoryService{
     @Override
     public void insert(CategoryDAO categoryDAO) {
         Category category = new Category(categoryDAO.getFldCategory());
+        categoriesRepository.insert(category);
     }
 
     @Override
@@ -61,4 +63,5 @@ public class CategoryServiceImpl implements CategoryService{
             return null;
         }
     }
+
 }

@@ -10,5 +10,7 @@
 *.class
 
 *.iml
-/FirstJSF_App/target/
+
 /ws-client/target/
+
+/FirstJSF_App/target/

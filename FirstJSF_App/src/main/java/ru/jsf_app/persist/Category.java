@@ -2,6 +2,7 @@ package ru.jsf_app.persist;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,7 +19,7 @@ public class Category implements Serializable {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
     public Category(){}
 

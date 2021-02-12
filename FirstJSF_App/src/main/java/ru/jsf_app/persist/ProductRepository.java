@@ -2,6 +2,7 @@ package ru.jsf_app.persist;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.jsf_app.service.ProductDAO;
 
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
@@ -47,10 +48,36 @@ public class ProductRepository {
         return Optional.empty();
     }
 
+    public Optional<Product> findByProductName(String productName){
+        Optional<Product> product = entityManager.createQuery(
+                "select prod from Product  prod where prod.name = :productName",
+                Product.class)
+                .setParameter("productName", productName).getResultList().stream().findFirst();
+
+        return product;
+    }
+
     public List<Product> findAll() {
         return entityManager.createQuery("from Product",Product.class).getResultList();
     }
 
+
+    public List<Product> findByFldCategory(String fldCategory){
+        return entityManager.createQuery(
+                "SELECT prod from Product prod where prod.category.fldCategory = :selectCategoryName",
+                Product.class )
+                .setParameter("selectCategoryName", fldCategory)
+                .getResultList();
+
+    }
+
+    public List<Product> findByIdCategory(Long id){
+        return entityManager.createQuery(
+                "SELECT prod FROM Product  prod WHERE prod.category.idCategory = :categoryId",
+                Product.class )
+                .setParameter("categoryId", id)
+                .getResultList();
+    }
 
 }
 

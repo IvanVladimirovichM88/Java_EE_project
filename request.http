@@ -1,0 +1,55 @@
+### Add product
+
+POST http://127.0.0.1:8080/FirstJSF_App/api/product
+Content-Type: application/json
+
+{
+  "description": "REST Apple netbook",
+  "idCategory": 1,
+  "name": "REST Apple Macbook air 2015",
+  "price": 2003.00
+}
+
+
+### delete product
+DELETE http://127.0.0.1:8080/FirstJSF_App/api/product/5
+
+### get product by ID
+
+GET http://127.0.0.1:8080/FirstJSF_App/api/product/2
+
+### get All products
+
+GET http://127.0.0.1:8080/FirstJSF_App/api/product
+
+### get products by categoy name
+
+GET http://127.0.0.1:8080/FirstJSF_App/api/product/findAllProductsByCategoryName/NoteBook
+
+### get products by category ID
+
+GET http://127.0.0.1:8080/FirstJSF_App/api/product//findAllProductByCategoryId/1
+
+### change product Category
+
+PUT http://127.0.0.1:8080/FirstJSF_App/api/product
+Content-Type: application/json
+
+{
+  "description": "REST Apple netbook",
+  "idCategory": 1,
+  "name": "REST Apple Macbook air 2015",
+  "price": 2003.00
+}
+
+### get all category
+GET http://127.0.0.1:8080/FirstJSF_App/api/category
+
+
+### add New category
+POST http://127.0.0.1:8080/FirstJSF_App/api/category
+Content-Type: application/json
+
+{
+  "fldCategory": "rest"
+}

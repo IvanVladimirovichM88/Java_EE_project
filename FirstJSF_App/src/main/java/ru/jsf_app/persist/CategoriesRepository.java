@@ -42,6 +42,11 @@ public class CategoriesRepository {
 
     }
 
+    public Optional<Category> findByCategoryFLd(String fldCategory){
+        Category category = entityManager.find(Category.class, fldCategory);
+        return category != null ? Optional.of(category) : Optional.empty();
+    }
+
     public void delete(Long id) {
         Category category = entityManager.find(Category.class, id);
         if ((category!=null) & (category.getProducts().isEmpty())){
